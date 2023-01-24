@@ -71,10 +71,8 @@ right join film_actor using(actor_id);
 # 10. get the addresses that have NO customers, and ends with the letter "e"
 select * from address;
 select * from customer;
-select address, customer_id from address
-right join customer using(address_id)
-union
+
 select address, customer_id from address
 left join customer using(address_id)
-where address regexp "*.e^"
-and customer_id = "null";
+where customer_id is null
+and address ;
