@@ -64,9 +64,7 @@ select * from actor;
 select * from film_actor;
 select first_name, last_name, film_id from actor
 left join film_actor using(actor_id)
-union
-select first_name, last_name, film_id from actor
-right join film_actor using(actor_id);
+where film_id is null;
 
 # 10. get the addresses that have NO customers, and ends with the letter "e"
 select * from address;
@@ -75,4 +73,17 @@ select * from customer;
 select address, customer_id from address
 left join customer using(address_id)
 where customer_id is null
-and address ;
+and address;
+
+# Optional: what is the most rented film?
+
+select * from rental;
+select * from inventory;
+select * from film;
+
+select title, count(rental_id) from film
+inner join inventory using(film_id)
+inner join rental using(inventory_id)
+group by title
+order by count(rental_id) desc;
+
