@@ -25,14 +25,14 @@ select * from bank.loan;
 select account_id from bank.loan where duration = 60 order by amount limit 5;
 # Query 8
 ## What are the unique values of k_symbol in the order table?
-select distinct k_symbol from bank.order;
+select distinct k_symbol from bank.order where k_symbol <> " " order by k_symbol;
 # Query 9
 ## In the order table, what are the order_ids of the client with the account_id 34?
 select * from bank.order;
 select order_id from bank.order where account_id = 34;
 # Query 10
 ## In the order table, which account_ids were responsible for orders between order_id 29540 and order_id 29560 (inclusive)?
-select account_id from bank.order where order_id between 29540 and 29560;
+select distinct account_id from bank.order where order_id between 29540 and 29560;
 # Query 11
 ## In the order table, what are the individual amounts that were sent to (account_to) id 30067122?
 select amount from bank.order where account_to = 30067122;
@@ -57,18 +57,45 @@ select account_id, amount from bank.loan order by amount desc limit 10;
 # Query 16
 ## In the loan table, retrieve the number of loans issued for each day, before (excl) 930907, ordered by date in descending order.
 select * from bank.loan;
-select * from bank.loan where date < 930907 order by date desc;
+select date, count(loan_id) from bank.loan where date < 930907 group by date, loan_id order by date desc;
 # Query 17
 ## In the loan table, for each day in December 1997, count the number of loans issued for each unique loan duration, ordered by date and duration, both in ascending order. You can ignore days without any loans in your output.
-select distinct date, duration, count(loan_id) from bank.loan group by loan_id having date between 971201 and 971231 order by date and duration;
+select distinct date, duration, count(loan_id) from bank.loan where date between 971201 and 971231 group by date, duration order by date and duration;
 # Query 18
 ## In the trans table, for account_id 396, sum the amount of transactions for each type (VYDAJ = Outgoing, PRIJEM = Incoming). Your output should have the account_id, the type and the sum of amount, named as total_amount. Sort alphabetically by type.
 select * from bank.trans;
 select distinct type, account_id, sum(amount) as total_amount from bank.trans where account_id=396 group by type;
 # Query 19
 ## From the previous output, translate the values for type to English, rename the column to transaction_type, round total_amount down to an integer
-select distinct type as transaction_type, case when 'PRIJEM' then 'incoming' when 'VYDAJ' then 'outgoing' end, account_id, floor(sum(amount)) as total_amount from bank.trans where account_id=396 group by type;
-
+select distinct 
+	account_id,
+    case 
+		when type = 'PRIJEM' then 'incoming' 
+        when type = 'VYDAJ' then 'outgoing' 
+        end as transaction_type,
+	floor(sum(amount)) as total_amount 
+	from bank.trans 
+	where account_id=396 
+	group by type;
 # Query 20
 ## From the previous result, modify your query so that it returns only one row, with a column for incoming amount, outgoing amount and the difference.
+select account_id,
+floor(sum(case
+	when type = 'PRIJEM' then amount
+    end)) as incoming_amount,
+floor(sum(case
+	when type = 'VYDAJ' then amount
+    end)) as outgoing_amount,
+floor(sum(case
+	when type = 'PRIJEM' then amount
+    end) - 
+    sum(case
+    when type = 'VYDAJ' then amount
+    end)) as difference
+from bank.trans
+where account_id = 396
+# Query 21
+## Continuing with the previous example, rank the top 10 account_ids based on their difference.
+
+
 
