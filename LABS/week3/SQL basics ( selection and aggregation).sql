@@ -93,9 +93,19 @@ floor(sum(case
     when type = 'VYDAJ' then amount
     end)) as difference
 from bank.trans
-where account_id = 396
+where account_id = 396;
 # Query 21
 ## Continuing with the previous example, rank the top 10 account_ids based on their difference.
-
+select account_id,
+floor(sum(case
+	when type = 'PRIJEM' then amount
+    end) - 
+    sum(case
+    when type = 'VYDAJ' then amount
+    end)) as difference
+from bank.trans
+group by account_id
+order by difference desc
+limit 10;
 
 
