@@ -66,7 +66,19 @@ where film_id in (select film_id from inventory
 
 
 # 8. Customers who spent more than the average payments(this refers to the average of all amount spent per each customer).
-select first_name, last_name from customer
-where customer_id in (select customer_id from payment
-					where amount > (select avg(amount) from payment))
-order by first_name ;
+select sum(amount) from payment
+group by customer_id;
+
+select first_name, last_name, sum(amount) as total_paid from customer
+join payment using(customer_id)
+group by customer_id
+having total_paid > (select avg(amount) from payment)
+order by first_name;
+
+select SUM(amount) as total_paid from payment group by customer_id;
+
+select avg(total_paid) as total_paid from (select SUM(amount) as total_paid from payment group by customer_id) as tablename;
+
+select avg(amount) from payment group by customer_id;
+select avg(amount) from payment;
+select amount from payment;
