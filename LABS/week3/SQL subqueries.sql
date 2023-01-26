@@ -33,6 +33,7 @@ where address_id in (select address_id from address
 					where city_id in (select city_id from city
 									where country_id in (select country_id from country
 														where country = "Canada")));
+                                                        
 
 select first_name, last_name, email from customer
 join address using (address_id)
@@ -57,28 +58,35 @@ where film_id in (select film_id from film_actor
 				where actor_id = 107);
 
 # 7. Films rented by most profitable customer. You can use the customer table and payment table to find the most profitable customer ie the customer that has made the largest sum of payments
-select title from film
-where film_id in (select film_id from inventory
-				where inventory_id in (select inventory_id from rental
-									where customer_id in (select customer_id from payment
-													where amount = (select max(amount) from payment))));
+select sum(amount) as total_paid from payment
+group by customer_id
+order by sum(amount) desc
+limit 1;
+
+select title, sum(amount) as total_paid from film
+join inventory using(film_id)
+join rental using (inventory_id)
+join payment using (customer_id)
+group by title
+having total_paid = (select sum(amount) as total_paid from payment
+group by customer_id
+order by sum(amount) desc
+limit 1);
                                                     
 
 
 # 8. Customers who spent more than the average payments(this refers to the average of all amount spent per each customer).
-select sum(amount) from payment
+select sum(amount) as total_paid, customer_id from payment
 group by customer_id;
 
-select first_name, last_name, sum(amount) as total_paid from customer
+select avg(total_paid) from (select sum(amount) as total_paid, customer_id 
+from payment
+group by customer_id) as sub;
+
+select first_name, last_name, sum(amount) as total_paid, customer_id from customer
 join payment using(customer_id)
 group by customer_id
-having total_paid > (select avg(amount) from payment)
+having total_paid > (select avg(total_paid) from (select sum(amount) as total_paid, customer_id 
+from payment
+group by customer_id) as sub)
 order by first_name;
-
-select SUM(amount) as total_paid from payment group by customer_id;
-
-select avg(total_paid) as total_paid from (select SUM(amount) as total_paid from payment group by customer_id) as tablename;
-
-select avg(amount) from payment group by customer_id;
-select avg(amount) from payment;
-select amount from payment;
