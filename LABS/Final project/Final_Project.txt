@@ -8,13 +8,15 @@ Miguel Lucia Bayer
 
 ## Goal of the project
 
-Build a regression model to find the most important factors that influence airbnb prices in Europe
+- Build a regression model to find the most important factors that determine airbnb prices in Europe. 
+- Create an interface that predicts the airbnb price for users.
 
 ## Brief description of the dataset
 
-The dataset source is Kaggle and it has 22470 rows and 21 variables:
+The dataset source is Kaggle and it has 51707 rows and 17 variables:
+https://www.kaggle.com/datasets/thedevastator/airbnb-price-determinants-in-europe?resource=download&select=vienna_weekends.csv
 
-1. Realsum: The total price of the Airbnb listing. (Numeric)
+1. realsum: The total price of the Airbnb listing. (Numeric)
 2. room_type: The type of room offered (e.g. private room, shared room, entire home/apt). (Categorical)
 3. room_shared: Whether the room is shared or not. (Boolean)
 4. room_private: Whether the room is private or not. (Boolean)
@@ -30,3 +32,28 @@ The dataset source is Kaggle and it has 22470 rows and 21 variables:
 14. lng: Longitude measurement corresponding to each rental unit. (Numeric)
 15. lat: Latitude measurement corresponding to each rental unit. (Numeric)
 16. weekend: Whether it was booked during a weekend or only for weekdays. (Boolean)
+17. city: where is the Airbnb located (Amsterdam, Berlin, London, Budapest, Lisbon, Barcelona, Rome, Paris, Athens and Vienna)
+
+## Plannning of the project
+
+### Data cleaning:
+- Standarized columns
+- Drop irrelevant features
+- Replace null values
+- Setting correct type of data
+- Filter data
+
+### Modelling:
+- Build the regression model
+- Compare the different regressions (Lasso, Ridge, OLS, LinearRegression)
+- Error metrics
+- Feature importance and remove unsignificant features that do not have correlation (feature selection using p-value)
+
+### Visualization:
+- Working in the visuals for the presentation
+- Setting the storytelling
+
+### Interface:
+- Work on the interface of the airbnb recommender
+
+
