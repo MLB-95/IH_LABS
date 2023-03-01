@@ -1,3 +1,5 @@
+# IH_LABS
+Repo to store all my labs
 # Final project
 
 Airbnb price determinants in Europe
@@ -55,5 +57,3 @@ https://www.kaggle.com/datasets/thedevastator/airbnb-price-determinants-in-europ
 
 ### Interface:
 - Work on the interface of the airbnb recommender
-
-
