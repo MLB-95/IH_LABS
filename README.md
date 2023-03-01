@@ -1,0 +1,59 @@
+# IH_LABS
+Repo to store all my labs
+# Final project
+
+Airbnb price determinants in Europe
+
+## Members of the group
+
+Miguel Lucia Bayer
+
+## Goal of the project
+
+- Build a regression model to find the most important factors that determine airbnb prices in Europe. 
+- Create an interface that predicts the airbnb price for users.
+
+## Brief description of the dataset
+
+The dataset source is Kaggle and it has 51707 rows and 17 variables:
+https://www.kaggle.com/datasets/thedevastator/airbnb-price-determinants-in-europe?resource=download&select=vienna_weekends.csv
+
+1. realsum: The total price of the Airbnb listing. (Numeric)
+2. room_type: The type of room offered (e.g. private room, shared room, entire home/apt). (Categorical)
+3. room_shared: Whether the room is shared or not. (Boolean)
+4. room_private: Whether the room is private or not. (Boolean)
+5. person_capacity: The maximum number of people that can be accommodated in a single listing. (Numeric)
+6. host_is_superhost: Whether or not a particular host is identified as a superhost on Airbnb. (Boolean)
+7. multi: Whether multiple rooms are provided in one individual listing or not. (Boolean)
+8. biz: Whether a particular listing offers business facilities like meeting area/conference rooms in addition to accommodation options. (Boolean)
+9. cleanliness_rating: The rating associated with how clean an individual property was after guests stayed at it. (Numeric)
+10. guest_satisfaction_overall: The overall rating which shows how satisfied are guests with their stay after visiting an Airbnb property. (Numeric)
+11. bedrooms: The total quantity of bedrooms available among all properties against a single hosting id. (Numeric)
+12. dist: Distance from city centre associated with every rental property. (Measurement may vary depending upon scale eg kilometers/miles etc )
+13. metro_dist: Distance from metro station associated with every rental property. (Measurement may vary depending upon scale eg kilometers/miles etc )
+14. lng: Longitude measurement corresponding to each rental unit. (Numeric)
+15. lat: Latitude measurement corresponding to each rental unit. (Numeric)
+16. weekend: Whether it was booked during a weekend or only for weekdays. (Boolean)
+17. city: where is the Airbnb located (Amsterdam, Berlin, London, Budapest, Lisbon, Barcelona, Rome, Paris, Athens and Vienna)
+
+## Plannning of the project
+
+### Data cleaning:
+- Standarized columns
+- Drop irrelevant features
+- Replace null values
+- Setting correct type of data
+- Filter data
+
+### Modelling:
+- Build the regression model
+- Compare the different regressions (Lasso, Ridge, OLS, LinearRegression)
+- Error metrics
+- Feature importance and remove unsignificant features that do not have correlation (feature selection using p-value)
+
+### Visualization:
+- Working in the visuals for the presentation
+- Setting the storytelling
+
+### Interface:
+- Work on the interface of the airbnb recommender
